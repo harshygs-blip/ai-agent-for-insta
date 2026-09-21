@@ -3,6 +3,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "routes": [
+    { "src": "/webhook", "dest": "/api/webhook.js" },
     { "src": "/privacy", "dest": "/privacy.html" },
     { "src": "/terms", "dest": "/terms.html" },
     { "src": "/data-deletion", "dest": "/data-deletion.html" },
