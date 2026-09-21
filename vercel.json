@@ -4,6 +4,7 @@
   "trailingSlash": false,
   "routes": [
     { "src": "/webhook", "dest": "/api/webhook.js" },
+    { "src": "/auth", "dest": "/auth.html" },
     { "src": "/privacy", "dest": "/privacy.html" },
     { "src": "/terms", "dest": "/terms.html" },
     { "src": "/data-deletion", "dest": "/data-deletion.html" },
