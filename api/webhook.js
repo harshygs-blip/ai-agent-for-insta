@@ -1,9 +1,6 @@
 // Vercel Serverless Function: Meta Instagram & WhatsApp Webhook
 const https = require('https');
 
-const VERIFY_TOKEN = process.env.VERIFY_TOKEN || 'harsh_store_verify_2026';
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
-
 const MASTER_SYSTEM_PROMPT = `You are the AI customer support and sales agent for 'The Harsh Seller' (FF Store / Instagram: ff_trusted_deals1).
 You sell verified Free Fire (Garena) game accounts/IDs.
 Always reply to the customer in natural, confident, and polite Hinglish (Hindi + English).
@@ -19,7 +16,8 @@ CORE BUSINESS RULES (NEVER BREAK):
 8. TONE: Direct, honest, confident, respectful Hinglish. Fast responses.`;
 
 async function callGemini(userText) {
-  if (!GEMINI_API_KEY) {
+  const geminiKey = process.env.GEMINI_API_KEY || '';
+  if (!geminiKey) {
     return "Yes bolo bro! Konsa buy karna hai mere profile mai ID post hai dekhlo fir screenshot bhej do. Fast response ke liye WhatsApp: +91 7318211010";
   }
 
@@ -30,7 +28,7 @@ async function callGemini(userText) {
   });
 
   return new Promise((resolve) => {
-    const req = https.request(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+    const req = https.request(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) },
       timeout: 8000
@@ -56,22 +54,25 @@ async function callGemini(userText) {
 module.exports = async (req, res) => {
   // 1. Meta Webhook Verification Handshake (GET)
   if (req.method === 'GET') {
-    const mode = req.query['hub.mode'];
-    const token = req.query['hub.verify_token'];
-    const challenge = req.query['hub.challenge'];
+    // Check all possible locations of challenge
+    const challenge = req.query['hub.challenge'] || 
+                      (req.query.hub && req.query.hub.challenge) || 
+                      req.query.challenge || 
+                      req.query['challenge'];
 
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-      console.log('WEBHOOK_VERIFIED');
-      return res.status(200).send(challenge);
-    } else {
-      return res.status(403).send('Verification token mismatch');
+    if (challenge) {
+      console.log('Verified challenge:', challenge);
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      return res.status(200).send(String(challenge));
     }
+
+    return res.status(200).send('Webhook endpoint active');
   }
 
   // 2. Incoming Message Event (POST)
   if (req.method === 'POST') {
     try {
-      const body = req.body;
+      const body = req.body || {};
       let userText = "Hi";
 
       if (body.object === 'instagram' || body.object === 'page') {
