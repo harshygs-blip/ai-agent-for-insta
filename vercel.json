@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/privacy", "dest": "/privacy.html" },
+    { "src": "/terms", "dest": "/terms.html" },
+    { "src": "/data-deletion", "dest": "/data-deletion.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

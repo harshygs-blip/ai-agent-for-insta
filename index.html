@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Harsh Seller | Official Store & Meta API Hub</title>
+  <meta name="description" content="Official verified store and support hub for The Harsh Seller (ff_trusted_deals1). Secure gaming deals, 24/7 AI customer support, and official compliance policies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07090e;
+      --card-bg: rgba(16, 22, 36, 0.7);
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #ff4757;
+      --accent-glow: rgba(255, 71, 87, 0.35);
+      --cyan: #00d2d3;
+      --gold: #ffa502;
+      --green: #2ed573;
+      --text: #f1f2f6;
+      --text-sub: #8395a7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 10% 10%, #101626 0%, #06080e 100%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: rgba(10, 14, 23, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 22px;
+      box-shadow: 0 4px 18px var(--accent-glow);
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 800; }
+    .nav-links { display: flex; gap: 16px; align-items: center; }
+    .nav-link { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: color 0.2s; }
+    .nav-link:hover { color: #fff; }
+    .btn-contact {
+      background: linear-gradient(135deg, var(--green), #10ac84);
+      color: #000;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero {
+      padding: 70px 24px 40px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    .badge {
+      background: rgba(255, 71, 87, 0.12);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .hero-h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #fff 40%, var(--text-sub));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-p { color: var(--text-sub); font-size: 1.1rem; line-height: 1.6; max-width: 650px; }
+    .hero-actions { display: flex; gap: 14px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--gold));
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 20px var(--accent-glow);
+      transition: transform 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-outline {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      padding: 28px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .card-icon { font-size: 2rem; }
+    .card-title { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 700; }
+    .card-desc { color: var(--text-sub); font-size: 0.92rem; line-height: 1.5; flex: 1; }
+    .card-link { color: var(--cyan); font-weight: 700; text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
+
+    footer {
+      margin-top: auto;
+      background: #04060a;
+      border-top: 1px solid var(--border);
+      padding: 30px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+    }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-sub); text-decoration: none; }
+    .footer-links a:hover { color: #fff; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-logo">🔥</div>
+      <div>
+        <div class="brand-title">THE HARSH SELLER</div>
+        <div style="font-size: 0.75rem; color: var(--text-sub);">Instagram: @ff_trusted_deals1</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="privacy.html" class="nav-link">Privacy Policy</a>
+      <a href="terms.html" class="nav-link">Terms of Service</a>
+      <a href="data-deletion.html" class="nav-link">Data Deletion</a>
+      <a href="https://wa.me/917318211010" target="_blank" class="btn-contact">💬 WhatsApp Official</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="badge">Official Store & Meta Developer Portal</div>
+    <h1 class="hero-h1">Verified Gaming ID Marketplace & AI Customer Hub</h1>
+    <p class="hero-p">
+      Direct 100% verified Free Fire account deals, instant automated response, and secure handover management. Compliant with Meta Graph API & WhatsApp Cloud API developer standards.
+    </p>
+    <div class="hero-actions">
+      <a href="https://www.instagram.com/ff_trusted_deals1" target="_blank" class="btn-primary">📸 Visit Instagram Profile</a>
+      <a href="https://wa.me/917318211010" target="_blank" class="btn-outline">💬 Chat on Official WhatsApp</a>
+      <a href="privacy.html" class="btn-outline">📜 Meta Privacy Policy</a>
+    </div>
+  </section>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <h3 class="card-title">Privacy & Data Security</h3>
+      <p class="card-desc">Complete Meta-compliant Privacy Policy explaining user data handling, encryption, and zero third-party sharing.</p>
+      <a href="privacy.html" class="card-link">Read Privacy Policy →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📜</div>
+      <h3 class="card-title">Store Terms & Conditions</h3>
+      <p class="card-desc">Clear guidelines on payment-first terms, fixed pricing policies, digital goods handover, and anti-fraud rules.</p>
+      <a href="terms.html" class="card-link">View Terms of Service →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🗑️</div>
+      <h3 class="card-title">User Data Deletion</h3>
+      <p class="card-desc">Meta required data deletion callback & instructions for customers to purge chat logs and transaction records.</p>
+      <a href="data-deletion.html" class="card-link">Data Deletion Instructions →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📺</div>
+      <h3 class="card-title">Verified Proofs & Showcase</h3>
+      <p class="card-desc">Legitimate proof highlights, YouTube delivery demonstrations ('Two Side Control'), and customer trust testimonials.</p>
+      <a href="https://youtu.be/HMZAJ5UTCh4" target="_blank" class="card-link">Watch YouTube Proofs →</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms & Conditions</a>
+      <a href="data-deletion.html">User Data Deletion</a>
+      <a href="https://wa.me/917318211010">Official Contact</a>
+    </div>
+    <div>© 2026 The Harsh Seller (ff_trusted_deals1). All rights reserved. New Delhi, India.</div>
+  </footer>
+</body>
+</html>
